@@ -5,39 +5,42 @@ class Prod < Formula
     desc "Production CLI tool for development workflows"
     homepage "https://github.com/pushtoprod/prod"
     version "0.0.1-staging"  # This will be replaced by GitHub Actions with the actual version
-    # We'll download directly from Supabase in the install method
-    # No url needed since we're not using standard Homebrew download
     license "MIT"
-    
-    # No dependencies needed since we're downloading pre-built binaries
-    
-    # Supabase URL for binary downloads
-    def supabase_url
-      "https://ciqiwllxffhbvayspynk.supabase.co"
-    end
-    
-    # Installation logic
-    def install
-      if OS.mac?
-        if Hardware::CPU.arm?
-          # Download and decompress from Supabase latest releases
-          system "curl", "-L", "#{supabase_url}/storage/v1/object/public/cli-binaries/releases/latest/prod-v#{version}-darwin-arm64.gz", "-o", "prod-darwin-arm64.gz"
-          system "gunzip", "prod-darwin-arm64.gz"
-          bin.install "prod-darwin-arm64" => "prod"
-        else
-          system "curl", "-L", "#{supabase_url}/storage/v1/object/public/cli-binaries/releases/latest/prod-v#{version}-darwin-amd64.gz", "-o", "prod-darwin-amd64.gz"
-          system "gunzip", "prod-darwin-amd64.gz"
-          bin.install "prod-darwin-amd64" => "prod"
+
+    on_macos do
+      if Hardware::CPU.arm?
+        url "https://ciqiwllxffhbvayspynk.supabase.co/storage/v1/object/public/cli-binaries/releases/latest/prod-v0.0.1-staging-darwin-arm64.gz"
+        sha256 "c7ebfdc8a79be7b3b21e6565f95de93f0a61bc3a53be3b114b02bc202b0b7ee0"
+
+        def install
+          bin.install "prod-v0.0.1-staging-darwin-arm64" => "prod"
         end
-      elsif OS.linux?
-        if Hardware::CPU.arm?
-          system "curl", "-L", "#{supabase_url}/storage/v1/object/public/cli-binaries/releases/latest/prod-v#{version}-linux-arm64.gz", "-o", "prod-linux-arm64.gz"
-          system "gunzip", "prod-linux-arm64.gz"
-          bin.install "prod-linux-arm64" => "prod"
-        else
-          system "curl", "-L", "#{supabase_url}/storage/v1/object/public/cli-binaries/releases/latest/prod-v#{version}-linux-amd64.gz", "-o", "prod-linux-amd64.gz"
-          system "gunzip", "prod-linux-amd64.gz"
-          bin.install "prod-linux-amd64" => "prod"
+      end
+      if Hardware::CPU.intel?
+        url "https://ciqiwllxffhbvayspynk.supabase.co/storage/v1/object/public/cli-binaries/releases/latest/prod-v0.0.1-staging-darwin-amd64.gz"
+        sha256 "e022775d6b11f236f66bf3c73a87c66b24f4c4e50d778add548ff6339680f469"
+
+        def install
+          bin.install "prod-v0.0.1-staging-darwin-amd64" => "prod"
+        end
+      end
+    end
+
+    on_linux do
+      if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+        url "https://ciqiwllxffhbvayspynk.supabase.co/storage/v1/object/public/cli-binaries/releases/latest/prod-v0.0.1-staging-linux-arm64.gz"
+        sha256 "58fcd0b66b91ccad4a3ddaa595d58eee5d27a3f52cdc992aeff446aac10a38b1"
+
+        def install
+          bin.install "prod-v0.0.1-staging-linux-arm64" => "prod"
+        end
+      end
+      if Hardware::CPU.intel?
+        url "https://ciqiwllxffhbvayspynk.supabase.co/storage/v1/object/public/cli-binaries/releases/latest/prod-v0.0.1-staging-linux-amd64.gz"
+        sha256 "a469764be712980206cd1a947263dae2c81e2d328a9e308eb8efb71baf651775"
+
+        def install
+          bin.install "prod-v0.0.1-staging-linux-amd64" => "prod"
         end
       end
     end
