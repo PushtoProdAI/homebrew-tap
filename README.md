@@ -29,7 +29,7 @@ brew install pushtoprod/tap/prod
 
 ### Add the Tap
 ```bash
-brew tap pushtoprod/tap
+brew tap pushtoprodai/tap
 ```
 
 ### Install Packages
@@ -38,7 +38,7 @@ brew tap pushtoprod/tap
 brew install prod
 
 # Or install directly without adding the tap
-brew install pushtoprod/tap/prod
+brew install pushtoprodai/tap/prod
 ```
 
 ## Usage
@@ -74,7 +74,7 @@ Remove packages:
 brew uninstall prod
 
 # Remove the tap (removes all packages from this tap)
-brew untap pushtoprod/tap
+brew untap pushtoprodai/tap
 ```
 
 ## Requirements
