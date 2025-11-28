@@ -4,43 +4,43 @@
 class Prod < Formula
     desc "Production CLI tool for development workflows"
     homepage "https://github.com/pushtoprod/prod"
-    version "0.0.1-staging"  # This will be replaced by GitHub Actions with the actual version
+    version "prod-staging-33ae52f"  # This will be replaced by GitHub Actions with the actual version
     license "MIT"
 
     on_macos do
       if Hardware::CPU.arm?
-        url "https://ciqiwllxffhbvayspynk.supabase.co/storage/v1/object/public/cli-binaries/releases/latest/prod-v0.0.1-staging-darwin-arm64.gz"
-        sha256 "c7ebfdc8a79be7b3b21e6565f95de93f0a61bc3a53be3b114b02bc202b0b7ee0"
+        url "https://ithjwwsjhdziqnxrwydg.supabase.co/storage/v1/object/public/cli-binaries/releases/latest/prod-staging-33ae52f-darwin-arm64.gz"
+        sha256 "0c82d268377261855cf0e6222679882561a0bad31c6070aa62fb2994db611f21"
 
         def install
-          bin.install "prod-v0.0.1-staging-darwin-arm64" => "prod"
+          bin.install "prod-staging-33ae52f-darwin-arm64" => "prod"
         end
       end
       if Hardware::CPU.intel?
-        url "https://ciqiwllxffhbvayspynk.supabase.co/storage/v1/object/public/cli-binaries/releases/latest/prod-v0.0.1-staging-darwin-amd64.gz"
-        sha256 "e022775d6b11f236f66bf3c73a87c66b24f4c4e50d778add548ff6339680f469"
+        url "https://ithjwwsjhdziqnxrwydg.supabase.co/storage/v1/object/public/cli-binaries/releases/latest/prod-staging-33ae52f-darwin-amd64.gz"
+        sha256 "549f8c40a2b6b18b3614af28664833fdd5c6d90373eb89cf42f9524a1eb25282"
 
         def install
-          bin.install "prod-v0.0.1-staging-darwin-amd64" => "prod"
+          bin.install "prod-staging-33ae52f-darwin-amd64.gz" => "prod"
         end
       end
     end
 
     on_linux do
       if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-        url "https://ciqiwllxffhbvayspynk.supabase.co/storage/v1/object/public/cli-binaries/releases/latest/prod-v0.0.1-staging-linux-arm64.gz"
-        sha256 "58fcd0b66b91ccad4a3ddaa595d58eee5d27a3f52cdc992aeff446aac10a38b1"
+        url "https://ithjwwsjhdziqnxrwydg.supabase.co/storage/v1/object/public/cli-binaries/releases/latest/prod-staging-33ae52f-linux-arm64.gz"
+        sha256 "9ec9732191510d873323166dd1c882d588741bc56f35e09fd29dccedd2b8451f"
 
         def install
-          bin.install "prod-v0.0.1-staging-linux-arm64" => "prod"
+          bin.install "prod-staging-33ae52f-linux-arm64.gz" => "prod"
         end
       end
       if Hardware::CPU.intel?
-        url "https://ciqiwllxffhbvayspynk.supabase.co/storage/v1/object/public/cli-binaries/releases/latest/prod-v0.0.1-staging-linux-amd64.gz"
-        sha256 "a469764be712980206cd1a947263dae2c81e2d328a9e308eb8efb71baf651775"
+        url "https://ithjwwsjhdziqnxrwydg.supabase.co/storage/v1/object/public/cli-binaries/releases/latest/prod-staging-33ae52f-linux-amd64.gz"
+        sha256 "7a9ec180173a55c11c32c6d99a96312c199c2a419b8ee9a38ce4c9cf40fe44d5"
 
         def install
-          bin.install "prod-v0.0.1-staging-linux-amd64" => "prod"
+          bin.install "prod-staging-33ae52f-linux-amd64.gz" => "prod"
         end
       end
     end
