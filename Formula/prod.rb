@@ -4,7 +4,7 @@
 class Prod < Formula
     desc "Production CLI tool for development workflows"
     homepage "https://github.com/pushtoprod/prod"
-    version "prod-staging-33ae52f"  # This will be replaced by GitHub Actions with the actual version
+    version "prod-v0.0.2"  # This will be replaced by GitHub Actions with the actual version
     license "MIT"
 
     on_macos do
