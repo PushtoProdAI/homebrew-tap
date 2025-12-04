@@ -21,11 +21,16 @@ jobs:
   update-formula:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout tap repository
+      - name: Checkout tap repository (manual trigger)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
+
+      - name: Checkout tap repository (called from prod)
+        if: github.event_name == 'workflow_call'
         uses: actions/checkout@v4
         with:
           repository: PushtoProdAI/homebrew-tap
-          token: ${{ secrets.HOMEBREW_TAP_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
           ref: main
 
       - name: Get version
@@ -157,7 +162,7 @@ jobs:
 
       - name: Create Pull Request
         env:
-          GH_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.event_name == 'workflow_dispatch' && secrets.GITHUB_TOKEN || secrets.HOMEBREW_TAP_TOKEN }}
         run: |
           VERSION="${{ steps.version.outputs.version }}"
           BRANCH="update-formula-${VERSION}"
