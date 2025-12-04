@@ -154,26 +154,46 @@ jobs:
           sed -i 's/^          //' Formula/prod.rb
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Update prod formula to ${{ steps.version.outputs.version }}"
-          title: "Update prod formula to ${{ steps.version.outputs.version }}"
-          body: |
-            This PR updates the prod Homebrew formula to version `${{ steps.version.outputs.version }}`.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          BRANCH="update-formula-${VERSION}"
 
-            ## Changes
-            - Updated download URLs to use versioned path
-            - Updated SHA256 checksums for all platforms
-            - Updated binary filenames
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-            ## Platforms Updated
-            - macOS ARM64 (Apple Silicon)
-            - macOS AMD64 (Intel)
-            - Linux ARM64
-            - Linux AMD64
+          # Create and switch to new branch
+          git checkout -b "$BRANCH"
 
-            ---
-            *This PR was automatically created by the Update Formula on Production Release workflow.*
-          branch: update-formula-${{ steps.version.outputs.version }}
-          delete-branch: true
+          # Stage and commit changes
+          git add Formula/prod.rb
+          git commit -m "Update prod formula to ${VERSION}"
+
+          # Push the branch
+          git push -u origin "$BRANCH"
+
+          # Create the PR
+          gh pr create \
+            --title "Update prod formula to ${VERSION}" \
+            --body "$(cat <<EOF
+          This PR updates the prod Homebrew formula to version \`${VERSION}\`.
+
+          ## Changes
+          - Updated download URLs to use versioned path
+          - Updated SHA256 checksums for all platforms
+          - Updated binary filenames
+
+          ## Platforms Updated
+          - macOS ARM64 (Apple Silicon)
+          - macOS AMD64 (Intel)
+          - Linux ARM64
+          - Linux AMD64
+
+          ---
+          *This PR was automatically created by the Update Formula on Production Release workflow.*
+          EOF
+          )" \
+            --base main \
+            --head "$BRANCH"
