@@ -97,62 +97,61 @@ jobs:
           FILENAME_LINUX_AMD64="${{ steps.checksums.outputs.filename_linux_amd64 }}"
 
           # Generate the formula file
-          cat > Formula/prod.rb << FORMULA_EOF
+          cat > Formula/prod.rb <<EOF
           # Homebrew Formula for prod CLI
           # This file will be used to create the Homebrew formula
 
           class Prod < Formula
-              desc "Production CLI tool for development workflows"
-              homepage "https://github.com/pushtoprod/prod"
-              version "${VERSION}"
-              license "MIT"
+            desc "Production CLI tool for development workflows"
+            homepage "https://github.com/pushtoprod/prod"
+            version "${VERSION}"
+            license "MIT"
 
-              on_macos do
-                if Hardware::CPU.arm?
-                  url "${SUPABASE_URL}/storage/v1/object/public/cli-binaries/releases/${VERSION}/${FILENAME_DARWIN_ARM64}.gz"
-                  sha256 "${CHECKSUM_DARWIN_ARM64}"
+            on_macos do
+              if Hardware::CPU.arm?
+                url "${SUPABASE_URL}/storage/v1/object/public/cli-binaries/releases/${VERSION}/${FILENAME_DARWIN_ARM64}.gz"
+                sha256 "${CHECKSUM_DARWIN_ARM64}"
 
-                  def install
-                    bin.install "${FILENAME_DARWIN_ARM64}" => "prod"
-                  end
-                end
-                if Hardware::CPU.intel?
-                  url "${SUPABASE_URL}/storage/v1/object/public/cli-binaries/releases/${VERSION}/${FILENAME_DARWIN_AMD64}.gz"
-                  sha256 "${CHECKSUM_DARWIN_AMD64}"
-
-                  def install
-                    bin.install "${FILENAME_DARWIN_AMD64}" => "prod"
-                  end
+                def install
+                  bin.install "${FILENAME_DARWIN_ARM64}" => "prod"
                 end
               end
+              if Hardware::CPU.intel?
+                url "${SUPABASE_URL}/storage/v1/object/public/cli-binaries/releases/${VERSION}/${FILENAME_DARWIN_AMD64}.gz"
+                sha256 "${CHECKSUM_DARWIN_AMD64}"
 
-              on_linux do
-                if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-                  url "${SUPABASE_URL}/storage/v1/object/public/cli-binaries/releases/${VERSION}/${FILENAME_LINUX_ARM64}.gz"
-                  sha256 "${CHECKSUM_LINUX_ARM64}"
-
-                  def install
-                    bin.install "${FILENAME_LINUX_ARM64}" => "prod"
-                  end
-                end
-                if Hardware::CPU.intel?
-                  url "${SUPABASE_URL}/storage/v1/object/public/cli-binaries/releases/${VERSION}/${FILENAME_LINUX_AMD64}.gz"
-                  sha256 "${CHECKSUM_LINUX_AMD64}"
-
-                  def install
-                    bin.install "${FILENAME_LINUX_AMD64}" => "prod"
-                  end
+                def install
+                  bin.install "${FILENAME_DARWIN_AMD64}" => "prod"
                 end
               end
-              
-              # Test the installation
-              test do
-                system "\#{bin}/prod", "--version"
+            end
+
+            on_linux do
+              if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+                url "${SUPABASE_URL}/storage/v1/object/public/cli-binaries/releases/${VERSION}/${FILENAME_LINUX_ARM64}.gz"
+                sha256 "${CHECKSUM_LINUX_ARM64}"
+
+                def install
+                  bin.install "${FILENAME_LINUX_ARM64}" => "prod"
+                end
               end
+              if Hardware::CPU.intel?
+                url "${SUPABASE_URL}/storage/v1/object/public/cli-binaries/releases/${VERSION}/${FILENAME_LINUX_AMD64}.gz"
+                sha256 "${CHECKSUM_LINUX_AMD64}"
+
+                def install
+                  bin.install "${FILENAME_LINUX_AMD64}" => "prod"
+                end
+              end
+            end
+
+            test do
+              system "#{bin}/prod", "--version"
+            end
           end
-          FORMULA_EOF
+          EOF
 
-          # Remove leading whitespace from the heredoc (dedent)
+          # Remove leading whitespace (10 spaces from YAML indentation)
           sed -i 's/^          //' Formula/prod.rb
 
       - name: Create Pull Request
