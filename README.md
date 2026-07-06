@@ -1,109 +1,47 @@
 # PushToProd Homebrew Tap
 
-This is the official Homebrew tap for PushToProd's development tools and CLI applications.
+The official Homebrew tap for [`prod`](https://github.com/pushtoprodai/prod-cli) — deploy
+code **and agents** to the cloud with natural language. One self-contained binary, no
+backend, your own credentials.
 
-## What is a Homebrew Tap?
+## Install
 
-A Homebrew tap is a third-party repository of Homebrew formulas. It allows you to install software that isn't included in the main Homebrew repository.
-
-## Available Packages
-
-### `prod` - Production CLI Tool
-
-A powerful command-line tool for development workflows, deployment management, and production operations.
-
-**Install:**
 ```bash
-brew install pushtoprod/tap/prod
-```
-
-**Features:**
-- 🚀 **Development workflows** - Streamline your development process
-- 🏗️ **Deployment management** - Deploy and manage applications
-- 🔧 **Production operations** - Monitor and maintain production systems
-- 📊 **Analytics dashboard** - Track usage and performance
-- 🔐 **Authentication** - Secure access to services
-- 🌐 **Multi-platform** - Works on macOS, Linux, and Windows
-
-## Installation
-
-### Add the Tap
-```bash
-brew tap pushtoprodai/tap
-```
-
-### Install Packages
-```bash
-# Install the Production CLI
-brew install prod
-
-# Or install directly without adding the tap
 brew install pushtoprodai/tap/prod
 ```
 
-## Usage
+Equivalently:
 
-### Production CLI
 ```bash
-# Check version
-prod --version
-
-# Get help
-prod --help
-
-# Run commands
-prod <command>
+brew tap pushtoprodai/tap
+brew install prod
 ```
 
-## Updates
+Prefer not to use Homebrew? The install one-liner works too:
 
-Update your installed packages:
 ```bash
-# Update all packages from this tap
-brew upgrade
-
-# Update specific package
-brew upgrade prod
+curl -fsSL https://raw.githubusercontent.com/pushtoprodai/prod-cli/main/scripts/install.sh | sh
 ```
 
-## Uninstallation
+macOS and Linux (glibc) are supported. On Windows, use **WSL2** and install the Linux build
+inside it — see [docs/windows.md](https://github.com/pushtoprodai/prod-cli/blob/main/docs/windows.md).
 
-Remove packages:
-```bash
-# Remove specific package
-brew uninstall prod
+## What is prod?
 
-# Remove the tap (removes all packages from this tap)
-brew untap pushtoprodai/tap
-```
+Describe intent in English; prod parses it, plans the deploy, shows you the plan and estimated
+cost, and — once you approve — deploys to your cloud with **your own credentials** (no prod
+account, nothing phones home).
 
-## Requirements
+Targets: Fly.io, Render, Vercel, Netlify, Heroku, AWS App Runner, Google Cloud Run, Azure
+Container Apps, **Modal** (experimental), and anything else via a provider plugin. It also
+speaks **MCP**, so AI agents can deploy, roll back, and tear down behind a human-approval gate.
 
-- **macOS**: 10.15 (Catalina) or later
-- **Linux**: Most modern distributions
-- **Homebrew**: Latest version recommended
+Full documentation: **https://github.com/pushtoprodai/prod-cli**
 
-## Support
+## How this tap is maintained
 
-- **Documentation**: [GitHub Repository](https://github.com/pushtoprod/prod)
-- **Issues**: [GitHub Issues](https://github.com/pushtoprod/prod/issues)
-- **Support**: [PushToProd Support](https://github.com/pushtoprod/prod/issues)
-
-## Development
-
-This tap is automatically updated when new versions are released. The formulas point to our Supabase storage for fast, reliable downloads.
-
-### Formula Details
-
-- **Source**: Built from [pushtoprod/prod](https://github.com/pushtoprod/prod)
-- **Storage**: Hosted on Supabase for optimal performance
-- **Updates**: Automatic updates via GitHub Actions
-- **Signing**: All packages are GPG signed for security
-
-## License
-
-This tap and its packages are licensed under the MIT License. See individual package licenses for details.
-
----
-
-**Made with ❤️ by the PushToProd team**
+`Formula/prod.rb` is published **automatically** by prod-cli's release workflow on every
+tagged release — it is not edited by hand. Until the first release is cut, install via the
+`curl … | sh` one-liner above. See
+[docs/DISTRIBUTION.md](https://github.com/pushtoprodai/prod-cli/blob/main/docs/DISTRIBUTION.md)
+for how releases and this formula are produced.
