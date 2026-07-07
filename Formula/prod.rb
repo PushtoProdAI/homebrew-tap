@@ -1,28 +1,28 @@
 class Prod < Formula
   desc "Deploy code and agents with natural language. One binary, no backend."
   homepage "https://github.com/pushtoprodai/prod-cli"
-  version "0.2.3"
+  version "0.2.4"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/pushtoprodai/prod-cli/releases/download/v0.2.3/prod_0.2.3_darwin_arm64.tar.gz"
-      sha256 "34ee7da68d61ebfdcd95ba970abeae4a194ad085265679f83f25dfbe3eb0c101"
+      url "https://github.com/pushtoprodai/prod-cli/releases/download/v0.2.4/prod_0.2.4_darwin_arm64.tar.gz"
+      sha256 "5cae5ff9620e2ec38c0d663643a47eb9eaa8de8fa6341f640be57da4c4ac6d11"
     end
     on_intel do
-      url "https://github.com/pushtoprodai/prod-cli/releases/download/v0.2.3/prod_0.2.3_darwin_amd64.tar.gz"
-      sha256 "65fd7ecfe32885b7d2ee5c136f767695254ae0855312137870904f74aa5172cb"
+      url "https://github.com/pushtoprodai/prod-cli/releases/download/v0.2.4/prod_0.2.4_darwin_amd64.tar.gz"
+      sha256 "793503953951ed2d572cf7bd338a75bb84e30f2cdb4e5ce9c19b9eaaf5d2dd00"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/pushtoprodai/prod-cli/releases/download/v0.2.3/prod_0.2.3_linux_arm64.tar.gz"
-      sha256 "c0c6a33a0ca7f7af020782784559e1254525116f6d9ed14360d1e150c5d27f80"
+      url "https://github.com/pushtoprodai/prod-cli/releases/download/v0.2.4/prod_0.2.4_linux_arm64.tar.gz"
+      sha256 "9889e4005848f9aff095fffaae7166e19fbbb69f0e5a3ac2c109d49c95b6549a"
     end
     on_intel do
-      url "https://github.com/pushtoprodai/prod-cli/releases/download/v0.2.3/prod_0.2.3_linux_amd64.tar.gz"
-      sha256 "a5c47d73969ff9e888371445d83038683d23d47602ab2380db5a484186ba8eea"
+      url "https://github.com/pushtoprodai/prod-cli/releases/download/v0.2.4/prod_0.2.4_linux_amd64.tar.gz"
+      sha256 "114a8af005aa348e3f61ab719763d93d572764855b8fd22dbe823b6ee1e161a8"
     end
   end
 
